@@ -38,6 +38,7 @@ class PublicationController extends Controller
             'dossier_annonce_id.required' => 'le dossier annonce est obligatoire',
         ]);
 
+        
   Publication::create($data);
           return redirect()->route('publication.index');
             }
