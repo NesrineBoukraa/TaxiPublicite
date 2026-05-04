@@ -29,7 +29,7 @@
                 <a class="nav-link" href="{{ route('publication.index') }}">Publication</a>
                  <a class="nav-link" href="{{ route('statutvalidation.index') }}">Statut Validation</a>
                   <a class="nav-link" href="{{ route('panneaupublicitaire.index') }}">Panneau Publicitaire</a>
-             <a class="nav-link" href="{{ route('timesheet.index') }}">Panneau Publicitaire</a>
+             <a class="nav-link" href="{{ route('timesheet.index') }}">Timesheet</a>
 
             </div>
 
