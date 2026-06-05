@@ -7,14 +7,14 @@
     <div class="container my-3">
 
         <div class="row justify-content-center">
-            <div class="col-8">{{-- card width --}}
+            <div class="col-8">
 
                 <div class="card shadow-lg">
 
-                    {{--card header--}}
+                  
                     <div class="card-header fs-4 fw-bold">annonceur Details</div>
 
-                    {{--card body--}}
+                  
                     <ul class="list-group list-group-flush">
 
 
@@ -59,7 +59,7 @@
 
                     </ul>
 
-                    {{-- footer --}}
+                    
                     <div class="card-footer">
                         <a class="btn btn-dark" href="{{ route('annonceur.index') }}">Retour</a>
                     </div>

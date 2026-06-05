@@ -58,7 +58,6 @@ class Annonceur extends Model
 
     public function servicesUtilises()
 {
-    // Récupère les services via les dossiers d'annonces sans doublons
     return $this->belongsToMany(ServicePublicitaire::class, 'dossier_annonces', 'annonceur_id', 'service_publicitaire_id')
                 ->distinct();
 }

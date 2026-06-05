@@ -22,7 +22,6 @@
 
                     <div class="card-body">
 
-                        {{-- Date --}}
                         <div class="mb-3">
                             <label>Date création</label>
                             <input type="date" name="datecreation"
@@ -30,7 +29,6 @@
                                    class="form-control">
                         </div>
 
-                        {{-- Annonceur --}}
                         <div class="mb-3">
                             <label>Annonceur</label>
                             <select name="annonceur_id" class="form-control">
@@ -43,7 +41,6 @@
                             </select>
                         </div>
 
-                        {{-- Service --}}
                         <div class="mb-3">
                             <label>Service</label>
                             <select name="service_publicitaire_id" class="form-control">

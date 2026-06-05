@@ -82,12 +82,6 @@ class PanneauPublicitaireController extends Controller
             }
 
 
-            // les panneau disponible
-    public function disponibles()
-    {
-        $panneaux = PanneauPublicitaire::where('disponible', true)->with('servicePublicitaire')->get();
-        return view('admin.panneaupublicitaire.disponibles', compact('panneaux'));
-    }
 
     
 }

@@ -33,8 +33,8 @@ class ServicePublicitaire extends Model
         return $this->hasManyThrough(
             Publication::class,
             DossierAnnonce::class,
-            'service_publicitaire_id', // FK dans dossier_annonces
-            'dossier_annonce_id',      // FK dans publications
+            'service_publicitaire_id', 
+            'dossier_annonce_id',      
             'id',
             'id'
         );
@@ -51,8 +51,6 @@ class ServicePublicitaire extends Model
             'id'
         );
     }
-    // Pas de relation Eloquent vers Produit (.NET externe)
-    // On expose juste l'ID pour jointure manuelle si besoin
     public function getProduitId(): ?int
     {
         return $this->produit_id;

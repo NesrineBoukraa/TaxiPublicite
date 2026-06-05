@@ -19,7 +19,6 @@
 
                     <div class="card-body p-4">
 
-                        {{-- Date création --}}
                         <div class="mb-4">
                             <label class="form-label fw-bold">Date de création</label>
                             <input type="date" name="datecreation"
@@ -30,12 +29,10 @@
                             @enderror
                         </div>
 
-                        {{-- Section Annonceur (Conditionnelle) --}}
                         <div class="mb-4">
                             <label class="form-label fw-bold">Annonceur</label>
                             
                             @if(auth()->user()->role === 'admin')
-                                {{-- L'admin choisit parmi tous les annonceurs --}}
                                 <select name="annonceur_id" class="form-select @error('annonceur_id') is-invalid @enderror">
                                     <option value="" selected disabled>Choisir un annonceur...</option>
                                     @foreach($annonceurs as $annonceur)
@@ -48,13 +45,11 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             @else
-                                {{-- L'annonceur voit son propre nom (lecture seule) --}}
                                 <input type="text" class="form-control bg-light" value="{{ auth()->user()->name }}" readonly>
                                 <small class="text-muted">Le dossier sera automatiquement lié à votre profil.</small>
                             @endif
                         </div>
 
-                        {{-- Service Publicitaire --}}
                         <div class="mb-4">
                             <label class="form-label fw-bold">Service publicitaire</label>
                             <select name="service_publicitaire_id" class="form-select @error('service_publicitaire_id') is-invalid @enderror">

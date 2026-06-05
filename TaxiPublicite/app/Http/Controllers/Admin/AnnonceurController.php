@@ -16,10 +16,10 @@ class AnnonceurController extends Controller
         $user = Auth::user();
 
         if ($user && strcasecmp($user->role, 'admin') == 0) {
-            // L'admin récupère TOUTE la table
+          
             $annonceurs = Annonceur::all();
         } else {
-            // L'annonceur ne voit que son propre enregistrement
+            
             $annonceurs = Annonceur::where('admin_user_id', $user->id)->get();
         }
 
@@ -56,7 +56,6 @@ public function store(Request $request)
     public function show(Annonceur $annonceur)
     {
         $user = Auth::user();
-        // Sécurité : l'annonceur ne peut voir que lui-même
         if (strcasecmp($user->role, 'admin') != 0 && $annonceur->admin_user_id !== $user->id) {
             abort(403);
         }

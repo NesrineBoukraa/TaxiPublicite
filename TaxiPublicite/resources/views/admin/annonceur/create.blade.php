@@ -9,21 +9,17 @@
 
             <div class="col-md-10">
 
-                {{-- form begin --}}
                 <form action="{{ route('annonceur.store') }}" method="post" enctype="multipart/form-data" class="">
                     @csrf
 
 
                     <div class="card shadow-lg">
 
-                        {{--card title--}}
                         <div class="card-header fs-4 fw-bold">Create annonceur</div>
 
-                        {{--card body--}}
                         <div class="card-body">
 
 
-                            {{-- text --}}
                             <div class="mb-3">
                                 <div class="row align-items-center">
                                     <div class="col-md-3">
@@ -42,7 +38,6 @@
                                 </div>
                             </div>
 
-                            {{-- text --}}
                             <div class="mb-3">
                                 <div class="row align-items-center">
                                     <div class="col-md-3">
@@ -61,7 +56,6 @@
                                 </div>
                             </div>
 
-                            {{-- text --}}
                             <div class="mb-3">
                                 <div class="row align-items-center">
                                     <div class="col-md-3">
@@ -80,7 +74,6 @@
                                 </div>
                             </div>
 
-                            {{-- text --}}
                             <div class="mb-3">
                                 <div class="row align-items-center">
                                     <div class="col-md-3">
@@ -98,7 +91,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- matricule --}}
                             <div class="mb-3">
                                 <div class="row align-items-center">
                                     <div class="col-md-3">
@@ -119,9 +111,9 @@
 
 
 
-                        </div>{{--end card body--}}
+                        </div>
 
-                        {{--card footer--}}
+                       
                         <div class="card-footer">
 
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -132,7 +124,7 @@
 
                     </div>
                 </form>
-                {{-- form end --}}
+               
 
             </div>
 

@@ -82,14 +82,12 @@ class ServicePublicitaireController extends Controller
                        
     }
 
-    //récupère tous les panneaux publicitaires liés à ce service
     public function panneaux(ServicePublicitaire $servicepublicitaire)
     {
         $panneaux = $servicepublicitaire->panneauPublicitaires;
         return view('admin.servicepublicitaire.panneaux', compact('servicepublicitaire', 'panneaux'));
     }
 
-    //récupère les horaires / planifications du service
     public function timeSheets(ServicePublicitaire $servicepublicitaire)
     {
         $timeSheets = $servicepublicitaire->timeSheets;
@@ -101,7 +99,6 @@ class ServicePublicitaireController extends Controller
     $user = Auth::user();
     $annonceur = Annonceur::where('admin_user_id', $user->id)->firstOrFail();
     
-    // On récupère les services présents dans ses dossiers
     $services = $annonceur->servicesUtilises()->get();
 
     return view('admin.servicepublicitaire.mesServices', compact('services'));

@@ -20,7 +20,6 @@
 
                     <div class="card-body">
 
-                        {{-- Date début --}}
                         <div class="mb-3">
                             <label>Date début</label>
                             <input type="date" name="datedebut"
@@ -31,7 +30,6 @@
                             @enderror
                         </div>
 
-                        {{-- Date fin --}}
                         <div class="mb-3">
                             <label>Date fin</label>
                             <input type="date" name="datefin"
@@ -42,7 +40,6 @@
                             @enderror
                         </div>
 
-                        {{-- Heure début --}}
                         <div class="mb-3">
                             <label>Heure début</label>
                             <input type="time" name="heuredebut"
@@ -53,7 +50,6 @@
                             @enderror
                         </div>
 
-                        {{-- Heure fin --}}
                         <div class="mb-3">
                             <label>Heure fin</label>
                             <input type="time" name="heurefin"
@@ -64,7 +60,6 @@
                             @enderror
                         </div>
 
-                        {{-- Service Publicitaire --}}
                         <div class="mb-4">
                             <label class="form-label fw-bold">Service publicitaire</label>
                             <select name="service_publicitaire_id" class="form-select @error('service_publicitaire_id') is-invalid @enderror">
@@ -82,7 +77,6 @@
 
                     </div>
 
-                        {{-- Annonceur --}}
                         <div class="mb-4 ps-3">
                             <label class="form-label fw-bold mb-2">Annonceur</label>
                             <select name="annonceur_id" class="form-select">
@@ -101,7 +95,6 @@
                             @enderror
                         </div>
 
-                    {{-- Panneau Publicitaire --}}
                     <div class="mb-4 ps-3">
                         <label class="form-label fw-bold mb-2">Panneau publicitaire</label>
 

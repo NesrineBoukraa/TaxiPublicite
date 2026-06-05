@@ -40,7 +40,6 @@ class DossierAnnonceController extends Controller
         $user = Auth::user();
         $services = ServicePublicitaire::where('actif', true)->get();
         
-        // L'admin peut choisir n'importe quel annonceur, l'annonceur n'en voit aucun (fixé en store)
         $annonceurs = (strcasecmp($user->role, 'admin') == 0) ? Annonceur::all() : null;
 
         return view('admin.dossierannonce.create', compact('annonceurs', 'services'));
@@ -132,7 +131,6 @@ class DossierAnnonceController extends Controller
 {
     $user = Auth::user();
 
-    // 🔵 ADMIN → tout accès
     if (strcasecmp($user->role, 'admin') == 0) {
         $dossierannonce->delete();
 
@@ -141,7 +139,6 @@ class DossierAnnonceController extends Controller
             ->with('success', 'Dossier supprimé.');
     }
 
-    // 🔴 ANNONCEUR → seulement ses propres dossiers
     $annonceur = Annonceur::where('admin_user_id', $user->id)->first();
 
     if (!$annonceur) {

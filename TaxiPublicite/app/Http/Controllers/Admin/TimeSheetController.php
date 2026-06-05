@@ -45,7 +45,7 @@ class TimeSheetController extends Controller
     {
         $panneaux = PanneauPublicitaire::all();
 
-        $services = ServicePublicitaire::all(); // global : accessible à tous
+        $services = ServicePublicitaire::all();
 
         if ($this->isAdmin()) {
             $annonceurs = Annonceur::all();

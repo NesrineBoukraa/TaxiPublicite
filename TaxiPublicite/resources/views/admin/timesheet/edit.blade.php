@@ -62,7 +62,7 @@
                             </select>
                         </div>
 
-                        {{-- Annonceur --}}
+                        
                         <div class="mb-3">
                             <label class="form-label">Annonceur</label>
 
