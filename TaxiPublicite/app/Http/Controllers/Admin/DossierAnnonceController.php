@@ -15,12 +15,12 @@ class DossierAnnonceController extends Controller
     {
         $user = Auth::user();
 
-        // Vérification du rôle admin (insensible à la casse)
+      
         if ($user && strcasecmp($user->role, 'admin') == 0) {
-            // L'admin voit TOUT
+           
             $dossierannonces = DossierAnnonce::with(['annonceur', 'servicePublicitaire'])->get();
         } else {
-            // L'annonceur ne voit que les siens
+           
             $annonceur = Annonceur::where('admin_user_id', $user->id)->first();
 
             if ($annonceur) {
@@ -28,7 +28,7 @@ class DossierAnnonceController extends Controller
                     ->with(['annonceur', 'servicePublicitaire'])
                     ->get();
             } else {
-                $dossierannonces = collect(); // Évite l'erreur 500 si profil manquant
+                $dossierannonces = collect();
             }
         }
 
@@ -85,21 +85,25 @@ class DossierAnnonceController extends Controller
         return view('admin.dossierannonce.show', compact('dossierannonce'));
     }
 
-    public function edit(DossierAnnonce $dossierannonce)
-    {
-        $user = Auth::user();
-        if (strcasecmp($user->role, 'admin') != 0) {
-            $annonceur = Annonceur::where('admin_user_id', $user->id)->first();
-            if (!$annonceur || $dossierannonce->annonceur_id !== $annonceur->id) {
-                abort(403);
-            }
-        }
+   public function edit(DossierAnnonce $dossierannonce)
+{
+    $user = Auth::user();
 
-        $annonceurs = (strcasecmp($user->role, 'admin') == 0) ? Annonceur::all() : null;
-        $services = ServicePublicitaire::all();
-
-        return view('admin.dossierannonce.edit', compact('dossierannonce', 'annonceurs', 'services'));
+    if (strcasecmp($user->role, 'admin') == 0) {
+        $annonceurs = Annonceur::all();
+    } else {
+        $annonceur = Annonceur::where('admin_user_id', $user->id)->first();
+        $annonceurs = $annonceur ? collect([$annonceur]) : collect();
     }
+
+    $services = ServicePublicitaire::all();
+
+    return view('admin.dossierannonce.edit', compact(
+        'dossierannonce',
+        'annonceurs',
+        'services'
+    ));
+}
 
     public function update(Request $request, DossierAnnonce $dossierannonce)
     {
@@ -124,14 +128,36 @@ class DossierAnnonceController extends Controller
         return redirect()->route('dossierannonce.index')->with('success', 'Dossier mis à jour.');
     }
 
-    public function destroy(DossierAnnonce $dossierannonce)
-    {
-        if (strcasecmp(Auth::user()->role, 'admin') != 0) {
-            abort(403);
-        }
+   public function destroy(DossierAnnonce $dossierannonce)
+{
+    $user = Auth::user();
+
+    // 🔵 ADMIN → tout accès
+    if (strcasecmp($user->role, 'admin') == 0) {
         $dossierannonce->delete();
-        return redirect()->route('dossierannonce.index')->with('success', 'Dossier supprimé.');
+
+        return redirect()
+            ->route('dossierannonce.index')
+            ->with('success', 'Dossier supprimé.');
     }
+
+    // 🔴 ANNONCEUR → seulement ses propres dossiers
+    $annonceur = Annonceur::where('admin_user_id', $user->id)->first();
+
+    if (!$annonceur) {
+        abort(403, 'Profil annonceur introuvable.');
+    }
+
+    if ($dossierannonce->annonceur_id != $annonceur->id) {
+        abort(403, 'Action non autorisée.');
+    }
+
+    $dossierannonce->delete();
+
+    return redirect()
+        ->route('dossierannonce.index')
+        ->with('success', 'Dossier supprimé.');
+}
     public function byAnnonceur($id)
     {
         if (Auth::user()->role !== 'admin') {

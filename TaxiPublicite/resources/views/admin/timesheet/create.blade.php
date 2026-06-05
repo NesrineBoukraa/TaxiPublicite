@@ -83,10 +83,9 @@
                     </div>
 
                         {{-- Annonceur --}}
-                        <div class="mb-3">
-                            <label class="form-label">Annonceur</label>
-
-                            <select name="annonceur_id" class="form-control">
+                        <div class="mb-4 ps-3">
+                            <label class="form-label fw-bold mb-2">Annonceur</label>
+                            <select name="annonceur_id" class="form-select">
                                 <option value="" disabled selected>Choisir un annonceur...</option>
 
                                 @foreach($annonceurs as $annonceur)
@@ -103,8 +102,8 @@
                         </div>
 
                     {{-- Panneau Publicitaire --}}
-                    <div class="mb-4">
-                        <label class="form-label fw-bold">Panneau publicitaire</label>
+                    <div class="mb-4 ps-3">
+                        <label class="form-label fw-bold mb-2">Panneau publicitaire</label>
 
                         <select name="panneau_publicitaire_id"
                                 class="form-select @error('panneau_publicitaire_id') is-invalid @enderror">

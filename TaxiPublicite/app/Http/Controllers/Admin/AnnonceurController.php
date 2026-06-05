@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Annonceur;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AnnonceurController extends Controller
 {
@@ -31,21 +33,21 @@ class AnnonceurController extends Controller
 
 public function store(Request $request)
 {
-   
+
     $user = User::create([
         'name'     => $request->nom,
         'email'    => $request->email,
-        'password' => Hash::make('password_par_defaut'), 
+        'password' => Hash::make('password_par_defaut'),
     ]);
 
-   
+
     Annonceur::create([
         'nom'               => $request->nom,
         'email'             => $request->email,
         'telephone'         => $request->telephone,
         'adresse'           => $request->adresse,
         'matricule_fiscale' => $request->matricule_fiscale,
-        'admin_user_id'     => $user->id, 
+        'admin_user_id'     => $user->id,
     ]);
 
     return redirect()->route('annonceur.index');
@@ -76,7 +78,7 @@ public function store(Request $request)
              $user = Auth::user();
         if (strcasecmp($user->role, 'admin') != 0 && $annonceur->admin_user_id !== $user->id) {
             abort(403);
-        } 
+        }
 
          $data = $request->validate([
             'nom' => 'required|string|max:255',

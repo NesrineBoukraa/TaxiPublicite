@@ -20,10 +20,7 @@
                     + Create un Panneau
                 </a>
 
-                <a class="btn btn-dark"
-                   href="{{ route('panneaupublicitaire.disponibles') }}">
-                    Panneaux disponibles
-                </a>
+               
             </div>
 
             <div class="table-responsive">

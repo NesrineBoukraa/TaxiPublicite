@@ -13,14 +13,22 @@
                     Mon Profil Annonceur
                 @endif
             </span>
-            
-           
+
+
         </div>
 
         <div class="card-body">
             @if(session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between mb-3">
+                        <a class="btn btn-success rounded-pill px-4 fw-medium shadow-sm"
+                           href="{{ route('annonceur.create') }}">
+                            + Create Annonceur
+                        </a>
+                    </div>
 
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
@@ -42,30 +50,31 @@
                                 <td>{{ $annonceur->telephone }}</td>
                                  <td>{{ $annonceur->matricule_fiscale }}</td>
                                 <td>{{ Str::limit($annonceur->adresse, 40) }}</td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-2">
-                                        {{-- Voir et Modifier : Accessible à l'Admin ET au propriétaire du compte --}}
-                                        <a href="{{ route('annonceur.show', $annonceur->id) }}" class="btn btn-sm btn-info text-white">
-                                            <i class="fas fa-eye"></i> Voir
-                                        </a>
-                                        
-                                                 @if(auth()->user()->role === 'annonceur')
-                                        <a href="{{ route('annonceur.edit', $annonceur->id) }}" class="btn btn-sm btn-warning">
-                                            <i class="fas fa-edit"></i> Modifier
-                                        </a>
+                                <td class="d-flex gap-1">
 
-                                        <form action="{{ route('annonceur.destroy', $annonceur->id) }}" method="POST" onsubmit="return confirm('Supprimer cet annonceur définitivement ?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="fas fa-trash"></i> Supprimer
-                                                </button>
-                                            </form>
 
-                                          @endif
+                                    <a class="btn btn-sm btn-info text-white"
+                                       href="{{ route('annonceur.show', $annonceur->id) }}">
+                                        show
+                                    </a>
 
-                                        
-                                    </div>
+                                    <a class="btn btn-sm btn-warning"
+                                       href="{{ route('annonceur.edit', $annonceur->id) }}">
+                                        edit
+                                    </a>
+
+                                    <form action="{{ route('annonceur.destroy', $annonceur->id) }}"
+                                          method="post">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Supprimer ce annonceur ?')">
+                                            delete
+                                        </button>
+
+                                    </form>
+
                                 </td>
                             </tr>
                         @empty

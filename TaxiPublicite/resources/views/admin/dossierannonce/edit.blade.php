@@ -34,7 +34,7 @@
                         <div class="mb-3">
                             <label>Annonceur</label>
                             <select name="annonceur_id" class="form-control">
-                                @foreach($annonceurs as $annonceur)
+                                @foreach($annonceurs ?? [] as $annonceur)
                                     <option value="{{ $annonceur->id }}"
                                         @selected($dossierannonce->annonceur_id == $annonceur->id)>
                                         {{ $annonceur->nom }}
