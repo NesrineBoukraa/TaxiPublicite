@@ -64,31 +64,69 @@
                             @enderror
                         </div>
 
-                        {{-- Service --}}
-                        <div class="mb-3">
-                            <label>Service publicitaire</label>
-                            <select name="service_publicitaire_id" class="form-control">
+                        {{-- Service Publicitaire --}}
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Service publicitaire</label>
+                            <select name="service_publicitaire_id" class="form-select @error('service_publicitaire_id') is-invalid @enderror">
+                                <option value="" selected disabled>Sélectionner un service...</option>
                                 @foreach($services as $service)
-                                    <option value="{{ $service->id }}">
-                                        {{ $service->nomservice }}
+                                    <option value="{{ $service->id }}" {{ old('service_publicitaire_id') == $service->id ? 'selected' : '' }}>
+                                        {{ $service->nomservice }} ({{ $service->tarif }} DT)
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
-
-                        {{-- Panneau --}}
-                        <div class="mb-3">
-                            <label>Panneau publicitaire</label>
-                            <select name="panneau_publicitaire_id" class="form-control">
-                                @foreach($panneaux as $panneau)
-                                    <option value="{{ $panneau->id }}">
-                                        {{ $panneau->nompanneau }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            @error('service_publicitaire_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                     </div>
+
+                        {{-- Annonceur --}}
+                        <div class="mb-3">
+                            <label class="form-label">Annonceur</label>
+
+                            <select name="annonceur_id" class="form-control">
+                                <option value="" disabled selected>Choisir un annonceur...</option>
+
+                                @foreach($annonceurs as $annonceur)
+                                    <option value="{{ $annonceur->id }}"
+                                        {{ old('annonceur_id') == $annonceur->id ? 'selected' : '' }}>
+                                        {{ $annonceur->nom }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            @error('annonceur_id')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                    {{-- Panneau Publicitaire --}}
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Panneau publicitaire</label>
+
+                        <select name="panneau_publicitaire_id"
+                                class="form-select @error('panneau_publicitaire_id') is-invalid @enderror">
+
+                            <option value="" selected disabled>Sélectionner un panneau...</option>
+
+                            @foreach($panneaux as $panneau)
+                                <option value="{{ $panneau->id }}"
+                                    {{ old('panneau_publicitaire_id') == $panneau->id ? 'selected' : '' }}>
+                                    {{ $panneau->nompanneau }}
+                                </option>
+                            @endforeach
+
+                        </select>
+
+                        @error('panneau_publicitaire_id')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+
 
                     <div class="card-footer">
                         <button class="btn btn-primary">Submit</button>
@@ -98,7 +136,7 @@
 
                 </div>
 
-            </form>
+        </form>
 
         </div>
     </div>

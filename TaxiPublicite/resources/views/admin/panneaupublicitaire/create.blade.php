@@ -67,7 +67,7 @@
                             <select name="service_publicitaire_id" class="form-control">
                                 @foreach($services as $service)
                                     <option value="{{ $service->id }}">
-                                        {{ $service->nom }}
+                                        {{ $service->nomservice }}
                                     </option>
                                 @endforeach
                             </select>

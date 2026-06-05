@@ -26,9 +26,10 @@
 
                     <thead>
                     <tr>
-                        
+
                         <th>Annonceur</th>
                         <th>Service</th>
+                        <th>Date de Creation</th>
                         <th>Created</th>
                         <th>Updated</th>
                         <th>Actions</th>
@@ -41,19 +42,19 @@
 
 
                             <td>{{ $dossierannonce->annonceur->nom ?? '-' }}</td>
-
                             <td>{{ $dossierannonce->servicePublicitaire->nomservice ?? '-' }}</td>
-
+                            <td>{{ $dossierannonce->datecreation }}</td>
                             <td>{{ $dossierannonce->created_at->diffForHumans() }}</td>
                             <td>{{ $dossierannonce->updated_at->diffForHumans() }}</td>
 
                             <td class="d-flex gap-1">
 
+
                                 <a class="btn btn-sm btn-info text-white"
                                    href="{{ route('dossierannonce.show', $dossierannonce->id) }}">
                                     show
                                 </a>
-
+ 
                                 <a class="btn btn-sm btn-warning"
                                    href="{{ route('dossierannonce.edit', $dossierannonce->id) }}">
                                     edit

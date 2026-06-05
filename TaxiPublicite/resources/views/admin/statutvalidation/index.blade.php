@@ -46,36 +46,81 @@
 
                             <td>{{ Str::limit($statut->commentaire, 30) }}</td>
 
-                            <td>{{ $statut->dossierAnnonces->titre ?? '-' }}</td>
+                            <td>{{ $statut->dossierAnnonce->id ?? '-' }}</td>
 
                             <td>{{ $statut->created_at->diffForHumans() }}</td>
                             <td>{{ $statut->updated_at->diffForHumans() }}</td>
 
-                            <td class="d-flex gap-1">
+                         <td>
+    <div class="d-flex flex-wrap gap-2">
 
-                                <a class="btn btn-sm btn-info text-white"
-                                   href="{{ route('statutvalidation.show', $statut->id) }}">
-                                    show
-                                </a>
+        @if(auth()->user()->role === 'admin')
 
-                                <a class="btn btn-sm btn-warning"
-                                   href="{{ route('statutvalidation.edit', $statut->id) }}">
-                                    edit
-                                </a>
+            {{-- VALIDER --}}
+            <form action="" method="POST">
+                @csrf
+                @method('PATCH')
 
-                                <form action="{{ route('statutvalidation.destroy', $statut->id) }}"
-                                      method="post">
-                                    @csrf
-                                    @method('DELETE')
+                <button type="submit"
+                        class="btn btn-success btn-sm rounded-pill px-3 shadow-sm"
+                        onclick="return confirm('Voulez-vous vraiment valider ce dossier ?')">
 
-                                    <button class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Supprimer ce statut ?')">
-                                        delete
-                                    </button>
+                    <i class="fas fa-check-circle me-1"></i>
+                    Valider
+                </button>
+            </form>
 
-                                </form>
+            {{-- REFUSER --}}
+            <form action="" method="POST">
+                @csrf
+                @method('PATCH')
 
-                            </td>
+                <button type="submit"
+                        class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm"
+                        onclick="return confirm('Voulez-vous vraiment refuser ce dossier ?')">
+
+                    <i class="fas fa-times-circle me-1"></i>
+                    Refuser
+                </button>
+            </form>
+
+        @endif
+
+        {{-- SHOW --}}
+        <a class="btn btn-info btn-sm text-white rounded-pill px-3 shadow-sm"
+           href="{{ route('statutvalidation.show', $statut->id) }}">
+
+            <i class="fas fa-eye me-1"></i>
+            Show
+        </a>
+
+        {{-- EDIT --}}
+        <a class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm"
+           href="{{ route('statutvalidation.edit', $statut->id) }}">
+
+            <i class="fas fa-edit me-1"></i>
+            Edit
+        </a>
+
+        {{-- DELETE --}}
+        <form action="{{ route('statutvalidation.destroy', $statut->id) }}"
+              method="POST">
+
+            @csrf
+            @method('DELETE')
+
+            <button type="submit"
+                    class="btn btn-dark btn-sm rounded-pill px-3 shadow-sm"
+                    onclick="return confirm('Supprimer ce statut ?')">
+
+                <i class="fas fa-trash-alt me-1"></i>
+                Delete
+            </button>
+
+        </form>
+
+    </div>
+</td>
 
                         </tr>
                     @endforeach

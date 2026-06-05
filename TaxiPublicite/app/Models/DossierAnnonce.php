@@ -27,7 +27,7 @@ class DossierAnnonce extends Model
         return $this->hasOne(Publication::class);
     }
 
-    public function statutValidation()
+    public function statutvalidation()
     {
         return $this->hasOne(StatutValidation::class);
     }

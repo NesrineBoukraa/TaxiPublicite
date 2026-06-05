@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ServicePublicitaire;
 use App\Models\Annonceur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ServicePublicitaireController extends Controller
 {
@@ -22,28 +23,20 @@ class ServicePublicitaireController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'nomservice'              => 'required|string|max:255',
-            'description'             => 'required|string',
-            'tarif'                   => 'required|numeric|min:0',
-            'dureejour'               => 'required|integer|min:1',
-            'actif'                   => 'boolean',
-            'annonceur_id'            => 'required|exists:annonceurs,id',
-            'produit_id'              => 'nullable|integer',
-        ], [
-            'nomservice.required'  => 'Le nom du service est obligatoire',
-            'description.required' => 'La description est obligatoire',
-            'tarif.required'       => 'Le tarif est obligatoire',
-            'tarif.numeric'        => 'Le tarif doit être un nombre',
-            'dureejour.required'   => 'La durée est obligatoire',
-            'annonceur_id.required'=> "L'annonceur est obligatoire",
-            'annonceur_id.exists'  => "L'annonceur sélectionné n'existe pas",
-        ]);
+{
+    $request->validate([
+        'nomservice'   => 'required|string|max:255',
+        'description'  => 'required|string',
+        'tarif'        => 'required|numeric|min:0',
+        'dureejour'    => 'required|integer|min:1',
+        'actif'        => 'boolean',
+        'annonceur_id' => 'nullable|exists:annonceurs,id', // Changé en nullable
+        'produit_id'   => 'nullable|integer',
+    ]);
 
-        ServicePublicitaire::create($request->all());
-        return redirect()->route('servicepublicitaire.index');
-    }
+    ServicePublicitaire::create($request->all());
+    return redirect()->route('servicepublicitaire.index')->with('success', 'Service créé avec succès.');
+}
 
     public function show(ServicePublicitaire $servicepublicitaire)
     {
@@ -102,4 +95,15 @@ class ServicePublicitaireController extends Controller
         $timeSheets = $servicepublicitaire->timeSheets;
         return view('admin.servicepublicitaire.timesheets', compact('servicepublicitaire', 'timeSheets'));
     }
+
+           public function mesServices()
+{
+    $user = Auth::user();
+    $annonceur = Annonceur::where('admin_user_id', $user->id)->firstOrFail();
+    
+    // On récupère les services présents dans ses dossiers
+    $services = $annonceur->servicesUtilises()->get();
+
+    return view('admin.servicepublicitaire.mesServices', compact('services'));
+}
 }

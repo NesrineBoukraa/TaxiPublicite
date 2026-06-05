@@ -55,7 +55,7 @@
                             <select name="dossier_annonce_id" class="form-control">
                                 @foreach($dossiers as $dossier)
                                     <option value="{{ $dossier->id }}">
-                                        {{ $dossier->titre ?? 'Dossier #' . $dossier->id }}
+                                        Dossier #{{ $dossier->id }}
                                     </option>
                                 @endforeach
                             </select>

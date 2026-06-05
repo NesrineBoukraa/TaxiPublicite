@@ -42,6 +42,10 @@
                     </li>
 
                     <li class="list-group-item">
+                        Annonceur : {{ $timesheet->annonceur->nom ?? '-' }}
+                    </li>
+
+                    <li class="list-group-item">
                         Created : {{ $timesheet->created_at->diffForHumans() }}
                     </li>
 

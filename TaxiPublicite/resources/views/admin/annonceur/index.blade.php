@@ -1,89 +1,82 @@
 @extends('admin.layout.layout')
 
-@section('title', 'index | annonceur')
+@section('title', 'Liste des Annonceurs')
 
 @section('content')
+<div class="container my-3">
+    <div class="card shadow-sm">
+        <div class="card-header fs-4 fw-bold d-flex justify-content-between align-items-center">
+            <span>
+                @if(auth()->user()->role === 'admin')
+                    Tous les Annonceurs
+                @else
+                    Mon Profil Annonceur
+                @endif
+            </span>
+            
+           
+        </div>
 
-    {{-- begin container --}}
-    <div class="container my-3">
+        <div class="card-body">
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
 
-        <div class="card">
-
-            {{-- card header --}}
-            <div class="card-header fs-4 fw-bold">All {{ Str::plural('annonceur') }}</div>
-            <br>
-            {{-- card body --}}
-            <div class="card-body">
-
-                {{-- button trashes + button create --}}
-                <div class="d-flex justify-content-between mb-3">
-                    <br>
-                    <a class="btn btn-success rounded-pill px4 fw-medium shadow-sm" href="{{ route('annonceur.create')}}">+ Create un Annonceur</a>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-sm align-middle text-nowrap">
-                        <thead>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
                         <tr>
                             <th>Nom</th>
                             <th>Email</th>
-                            <th>Telephone</th>
+                            <th>Téléphone</th>
+                            <th>Matricule Fiscale</th>
                             <th>Adresse</th>
-                            <th>Created_at</th>
-                            <th>Updated_at</th>
-                            <th >Actions</th>
+                            <th class="text-center">Actions</th>
                         </tr>
-                        </thead>
-                        <tbody>
+                    </thead>
+                    <tbody>
+                        @forelse($annonceurs as $annonceur)
+                            <tr>
+                                <td class="fw-bold">{{ $annonceur->nom }}</td>
+                                <td>{{ $annonceur->email }}</td>
+                                <td>{{ $annonceur->telephone }}</td>
+                                 <td>{{ $annonceur->matricule_fiscale }}</td>
+                                <td>{{ Str::limit($annonceur->adresse, 40) }}</td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        {{-- Voir et Modifier : Accessible à l'Admin ET au propriétaire du compte --}}
+                                        <a href="{{ route('annonceur.show', $annonceur->id) }}" class="btn btn-sm btn-info text-white">
+                                            <i class="fas fa-eye"></i> Voir
+                                        </a>
+                                        
+                                                 @if(auth()->user()->role === 'annonceur')
+                                        <a href="{{ route('annonceur.edit', $annonceur->id) }}" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit"></i> Modifier
+                                        </a>
 
+                                        <form action="{{ route('annonceur.destroy', $annonceur->id) }}" method="POST" onsubmit="return confirm('Supprimer cet annonceur définitivement ?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-trash"></i> Supprimer
+                                                </button>
+                                            </form>
 
-                        {{-- listing all resources --}}
-                @foreach( $annonceurs as $annonceur)
-                    <tr>
+                                          @endif
 
-                        <td>{{ Str::limit($annonceur->nom) }}</td>
-                        <td>{{ Str::limit($annonceur->email) }}</td>
-                        <td>{{ Str::limit($annonceur->telephone) }}</td>
-                        <td>{{ Str::limit($annonceur->adresse) }}</td>
-                        <td>{{ $annonceur->created_at->diffForHumans() }}</td>
-                        <td>{{ $annonceur->updated_at->diffForHumans() }}</td>
-
-
-                        {{-- actions --}}
-                        <td class="d-flex gap-1">
-
-                            <a class="btn btn-sm btn-info text-white"
-                               href="{{ route('annonceur.show', $annonceur->id)  }}">
-                                show
-                            </a>
-
-                            <a class="btn btn-sm btn-warning text-dark"
-                               href="{{ route('annonceur.edit', $annonceur->id)  }}">
-                                edit
-                            </a>
-
-                            <form action="{{ route('annonceur.destroy', $annonceur->id)  }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button onclick ="return confirm ('vous voulez supprimer ce annonceur ?')"  class="btn btn-sm btn-danger">destroy</button>
-                            </form>
-
-                        </td>
-                    </tr>
-
-                    @endforeach
-
-                        </tbody>
-                    </table>
-                </div>
-
-
-                {{-- card footer --}}
-            <div class="card-footer"></div>
-
-
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center">Aucun annonceur trouvé.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
-
     </div>
-    {{-- end container --}}
-    </div>
+</div>
 @endsection

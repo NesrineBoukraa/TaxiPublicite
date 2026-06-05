@@ -31,6 +31,7 @@
                         <th>Heure début</th>
                         <th>Heure fin</th>
                         <th>Service</th>
+                        <th>Annonceur</th>
                         <th>Panneau</th>
                         <th>Created</th>
                         <th>Updated</th>
@@ -52,7 +53,7 @@
                             <td>{{ $ts->heurefin }}</td>
 
                             <td>{{ $ts->servicePublicitaire->nomservice ?? '-' }}</td>
-
+                            <td>{{ $ts->annonceur->nom ?? '-' }}</td>
                             <td>{{ $ts->panneauPublicitaire->nompanneau ?? '-' }}</td>
 
                             <td>{{ $ts->created_at->diffForHumans() }}</td>

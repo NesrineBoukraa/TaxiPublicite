@@ -14,6 +14,7 @@ class TimeSheet extends Model
         'heurefin',
         'service_publicitaire_id',
         'panneau_publicitaire_id',
+        'annonceur_id',
     ];
 
     public function servicePublicitaire(): BelongsTo
@@ -26,11 +27,18 @@ class TimeSheet extends Model
         return $this->belongsTo(PanneauPublicitaire::class);
     }
 
-    protected function casts(): array
+    public function annonceur(): BelongsTo
     {
-        return [
-            'datedebut' => 'date',
-            'datefin' => 'date',
-        ];
+        return $this->belongsTo(Annonceur::class);
     }
+
+   protected function casts(): array
+    {
+       return [
+           'datedebut' => 'date',
+            'datefin' => 'date',
+       ];
+
+   }
+
 }

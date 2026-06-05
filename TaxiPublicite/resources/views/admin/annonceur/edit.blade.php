@@ -80,7 +80,25 @@
                                 </div>
                             </div>
 
-                            {{-- text --}}
+                            {{-- matricule fiscal --}}
+                            <div class="mb-3">
+                                <div class="row align-items-center">
+                                    <div class="col-md-3">
+                                        <label for="">Edit matricule fiscale : </label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text"
+                                               name="matricule_fiscale"
+                                               autofocus
+                                               value="{{ old('adresse', $annonceur->matricule_fiscale)  }}"
+                                               class="form-control">
+                                        @error('matricule_fiscale')
+                                        <div class="alert alert-danger py-2 mt-2">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="mb-3">
                                 <div class="row align-items-center">
                                     <div class="col-md-3">

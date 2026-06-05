@@ -36,7 +36,7 @@
 
                     <li class="list-group-item">
                         Service :
-                        {{ $panneaupublicitaire->servicePublicitaire->nom ?? '-' }}
+                        {{ $panneaupublicitaire->servicePublicitaire->nomservice ?? '-' }}
                     </li>
 
                     <li class="list-group-item">

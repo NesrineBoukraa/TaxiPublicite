@@ -58,7 +58,7 @@
                                 @foreach($services as $service)
                                     <option value="{{ $service->id }}"
                                         @selected($panneaupublicitaire->service_publicitaire_id == $service->id)>
-                                        {{ $service->nom }}
+                                        {{ $service->nomservice }}
                                     </option>
                                 @endforeach
                             </select>

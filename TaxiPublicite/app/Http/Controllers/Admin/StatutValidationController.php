@@ -11,7 +11,7 @@ class StatutValidationController extends Controller
 {
     public function index()
     {
-        $statuts = StatutValidation::with('dossierAnnonces')->get();
+        $statuts = StatutValidation::with('dossierAnnonce')->get();
         return view('admin.statutvalidation.index', compact('statuts'));
     }
 
@@ -27,7 +27,7 @@ class StatutValidationController extends Controller
             'libelle'            => 'required|string|max:255',
             'datevalidation'     => 'required|date',
             'commentaire'        => 'nullable|string',
-            'dossier_annonce_id' => 'required|exists:dossier_annonces,id|unique:statut_validations,dossier_annonce_id',
+            'dossier_annonce_id' => 'required|exists:dossier_annonces,id',
         ], [
             'libelle.required'            => 'Le libellé est obligatoire',
             'datevalidation.required'     => 'La date de validation est obligatoire',
@@ -42,10 +42,11 @@ class StatutValidationController extends Controller
             }
 
     public function show(StatutValidation $statutvalidation)
-    {
-        $statutvalidation->load('dossierAnnonces');
-        return view('admin.statutvalidation.show', compact('statutvalidation'));
-    }
+{
+    $statutvalidation->load('dossierAnnonce');
+
+    return view('admin.statutvalidation.show', compact('statutvalidation'));
+}
 
     public function edit(StatutValidation $statutvalidation)
     {
@@ -61,6 +62,7 @@ class StatutValidationController extends Controller
             'libelle'        => 'required|string|max:255',
             'datevalidation' => 'required|date',
             'commentaire'    => 'nullable|string',
+            'dossier_annonce_id' => 'required|exists:dossier_annonces,id',
         ], [
             'libelle.required'        => 'Le libellé est obligatoire',
             'datevalidation.required' => 'La date de validation est obligatoire',

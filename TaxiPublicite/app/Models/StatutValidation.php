@@ -14,10 +14,11 @@ class StatutValidation extends Model
         'dossier_annonce_id',
     ];
 
-    public function dossierAnnonces(): BelongsTo
+    public function dossierAnnonce()
     {
         return $this->belongsTo(DossierAnnonce::class);
     }
+  
 
     protected function casts(): array
     {

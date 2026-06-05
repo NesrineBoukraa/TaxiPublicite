@@ -12,7 +12,14 @@ class Annonceur extends Model
         'email',
         'telephone',
         'adresse',
+        'matricule_fiscale',
+        'admin_user_id',
     ];
+
+    public function user()
+{
+    return $this->belongsTo(User::class, 'admin_user_id');
+}
 
     public function servicepublicitaires()
     {
@@ -48,4 +55,11 @@ class Annonceur extends Model
             'id'
         );
     }
+
+    public function servicesUtilises()
+{
+    // Récupère les services via les dossiers d'annonces sans doublons
+    return $this->belongsToMany(ServicePublicitaire::class, 'dossier_annonces', 'annonceur_id', 'service_publicitaire_id')
+                ->distinct();
+}
 }

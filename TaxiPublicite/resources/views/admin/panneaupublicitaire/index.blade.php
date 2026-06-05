@@ -56,7 +56,7 @@
                                 @endif
                             </td>
 
-                            <td>{{ $panneau->servicePublicitaire->nom ?? '-' }}</td>
+                            <td>{{ $panneau->servicePublicitaire->nomservice ?? '-' }}</td>
 
                             <td>{{ $panneau->created_at->diffForHumans() }}</td>
                             <td>{{ $panneau->updated_at->diffForHumans() }}</td>

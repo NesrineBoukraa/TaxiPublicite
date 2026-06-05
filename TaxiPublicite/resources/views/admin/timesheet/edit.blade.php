@@ -62,6 +62,26 @@
                             </select>
                         </div>
 
+                        {{-- Annonceur --}}
+                        <div class="mb-3">
+                            <label class="form-label">Annonceur</label>
+
+                            <select name="annonceur_id" class="form-control">
+
+                                @foreach($annonceurs as $annonceur)
+                                    <option value="{{ $annonceur->id }}"
+                                        @selected(old('annonceur_id', $timesheet->annonceur_id) == $annonceur->id)>
+                                        {{ $annonceur->nom }}
+                                    </option>
+                                @endforeach
+
+                            </select>
+
+                            @error('annonceur_id')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <div class="mb-3">
                             <label>Panneau</label>
                             <select name="panneau_publicitaire_id" class="form-control">
@@ -75,6 +95,7 @@
                         </div>
 
                     </div>
+
 
                     <div class="card-footer">
                         <button class="btn btn-primary">Update</button>
